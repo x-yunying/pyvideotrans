@@ -1,4 +1,5 @@
 import copy,os
+import json
 import re
 import shutil
 import time
@@ -55,6 +56,18 @@ class DubbingMixin:
         voice_role = self.cfg.voice_role
         logger.debug(f'{line_roles=}')
         _lang=self.cfg.detect_language.split('-')[0]
+
+        # speaker.json 与字幕行一一对应，供按说话人创建音色的渠道使用（如 Qwen-TTS-VC）
+        spk_list = []
+        spk_file = Path(self.cfg.cache_folder) / 'speaker.json'
+        if not spk_file.exists():
+            spk_file = Path(self.cfg.target_dir) / 'speaker.json'
+        if spk_file.exists():
+            try:
+                spk_list = json.loads(spk_file.read_text(encoding='utf-8'))
+            except Exception as e:
+                logger.warning(f'读取 speaker.json 失败，忽略说话人信息: {e}')
+
         for i, it in enumerate(subs):
             if it['end_time'] < it['start_time'] or not it['text'].strip():
                 continue
@@ -79,6 +92,7 @@ class DubbingMixin:
                 "end_time_source": source_subs[i]['end_time'] if source_subs and i < len(source_subs) else it[
                     'end_time'],
                 "role": voice,
+                "spk": spk_list[i] if i < len(spk_list) else '',
                 "rate": rate,
                 "volume": self.cfg.volume,
                 "pitch": self.cfg.pitch,

@@ -237,12 +237,14 @@ def pyannote_speakers(*, input_file, subtitles_file: str, speak_file: str, num_s
 
 
 def built_speakers(*, input_file, subtitles_file: str, speak_file: str, num_speakers=-1, language="zh", **kw):
-    import librosa
     import soundfile as sf
+    from math import gcd
+    from scipy.signal import resample_poly
 
     def resample_audio(audio, sample_rate, target_sample_rate):
         if sample_rate != target_sample_rate:
-            audio = librosa.resample(audio, orig_sr=sample_rate, target_sr=target_sample_rate)
+            g = gcd(sample_rate, target_sample_rate)
+            audio = resample_poly(audio, target_sample_rate // g, sample_rate // g).astype('float32')
             return audio, target_sample_rate
         return audio, sample_rate
 

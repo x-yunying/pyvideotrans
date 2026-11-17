@@ -37,6 +37,8 @@ class BindSignalsMixin:
         self.listen_btn.clicked.connect(self.win_action.listen_voice_fun)
         self.recogn_type.currentIndexChanged.connect(self.win_action.recogn_type_change)
         self.model_name.currentIndexChanged.connect(self.win_action.model_type_change)
+        self.enable_diariz.toggled.connect(self.win_action.update_seg_mode_label)
+        self.nums_diariz.currentIndexChanged.connect(self.win_action.update_seg_mode_label)
 
         self.label.clicked.connect(lambda: open_url(url='https://pyvideotrans.com/proxy'))
         self.glossary.clicked.connect(lambda: show_glossary_editor(self))
@@ -66,6 +68,7 @@ class BindSignalsMixin:
                 self.win_action.toggle_adv()
 
             self.win_action.tts_type_change(self.tts_type.currentIndex())
+            self.win_action.update_seg_mode_label()
             _role = params.get('voice_role') or 'No'
             if _role in self.current_rolelist:
                 self.voice_role.setCurrentText(_role)

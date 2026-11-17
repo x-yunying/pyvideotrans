@@ -88,6 +88,11 @@ def _create_asr_row(ui, parent):
     ui.model_name.setMinimumWidth(300)
     ui.model_name.setObjectName("model_name")
 
+    ui.seg_mode_label = QtWidgets.QLabel(parent)
+    ui.seg_mode_label.setObjectName("seg_mode_label")
+    ui.seg_mode_label.setToolTip(tr("When speaker recognition is enabled, use word-level timestamps; otherwise use VAD"))
+    ui.seg_mode_label.setStyleSheet("color:#2f7fd1;font-weight:bold;")
+
     ui.rephrase = QtWidgets.QCheckBox()
     ui.rephrase.setText(tr("LLM Rephrase"))
     ui.rephrase.setToolTip(tr("re-segment the sentence.the original segmentation will be used"))
@@ -105,6 +110,7 @@ def _create_asr_row(ui, parent):
     layout.addWidget(ui.recogn_type)
     layout.addWidget(ui.model_name_help)
     layout.addWidget(ui.model_name)
+    layout.addWidget(ui.seg_mode_label)
     layout.addStretch()
     layout.addWidget(ui.rephrase)
     layout.addWidget(ui.recogn2pass)
