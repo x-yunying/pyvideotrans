@@ -84,6 +84,7 @@ MENU_CFG_STT = [
 
     # 语音识别
     ("openairecognapi", tr("OpenAI Speech to Text API"), None),
+    ("deepseekasr", "DeepSeek ASR", None),
     ("zijierecognmodel", tr("VolcEngine STT"), None),
     ("parakeet", 'Nvidia parakeet-tdt-0.6b', None),
     ("whisperxapi", 'WhisperX-API', None),

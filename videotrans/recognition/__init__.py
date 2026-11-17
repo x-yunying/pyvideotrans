@@ -47,6 +47,8 @@ def get_model_by_type(recogn_type: int) -> List[str]:
         return constants.ZHIPUAI_ASR_MODELS.split(',')
     if recogn_type == AUDIOCPP_API:
         return list(constants.AUDIOCPP_ASR_MODELS.keys())
+    if recogn_type == DEEPSEEK_ASR:
+        return ["deepseek-asr"]
 
     return constants.WHISPER_MODELS.split(',')
 
