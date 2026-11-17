@@ -56,6 +56,7 @@ OPENROUTER_API = 32
 MINIMAX_API = 33
 FISHAUDIO_API = 34
 AUDEXUM_API = 35
+DEEPSEEK_ASR = 36
 
 # 允许切换不同模型的渠道
 ALLOW_CHANGE_MODEL = [
@@ -67,7 +68,7 @@ ALLOW_CHANGE_MODEL = [
 
 # 允许所有语言，无需语言支持检测
 ALLOW_ALL_LANGUAGES = [FASTER_WHISPER, OPENAI_WHISPER, WHISPERX_API, Faster_Whisper_XXL, Whisper_CPP, OPENAI_API,
-                       AI_302, GEMINI_SPEECH, WHISPER_NET, GOOGLE_SPEECH, AUDEXUM_API,FISHAUDIO_API]
+                       AI_302, GEMINI_SPEECH, WHISPER_NET, GOOGLE_SPEECH, AUDEXUM_API,FISHAUDIO_API,DEEPSEEK_ASR]
 
 # 渠道id对应的设置窗口和sk键名,
 # key_name: 存储 SK 或 api url的键，通过 app_cfg.params 调用，如果不存在该值，在使用时报错未填写
@@ -187,6 +188,10 @@ ID_NAME_DICT = {
                                  key_name="audexum_key",
                                  win="audexum",
                                  imp="._audexum"),
+    DEEPSEEK_ASR: ChannelProvider("DeepSeek ASR",
+                                  key_name="deepseek_key",
+                                  win="deepseekasr",
+                                  imp="._deepseekasr"),
 
 
 }
