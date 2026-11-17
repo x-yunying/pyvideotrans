@@ -297,6 +297,13 @@ _default = {
         "ttsapi_voice_role": "",
         "ttsapi_extra": "123456",
     },
+    "qwenclone": {
+        # 阿里云百炼 千问3-TTS 声音复刻
+        "qwenclone_key": "",
+        "qwenclone_spaceid": "",
+        "qwenclone_model": "qwen-audio-3.0-tts-flash",
+        "qwenclone_roles": "",
+    },
 
     "whisperxapi": {
         # 本地 whisperx api

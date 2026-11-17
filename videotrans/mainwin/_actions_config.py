@@ -30,6 +30,23 @@ class WinActionConfigMixin:
             return False
         return True
 
+    def update_seg_mode_label(self, *args):
+        if not hasattr(self.main, 'seg_mode_label'):
+            return
+        model = self.main.model_name.currentText()
+        if model == 'qwen-audio-3.1-asr-flash':
+            if self.main.enable_diariz.isChecked():
+                text = tr("Segmentation: word timestamps (multi-speaker)")
+                color = "#2f7fd1"
+            else:
+                text = tr("Segmentation: VAD (single speaker)")
+                color = "#888888"
+        else:
+            text = tr("Segmentation: VAD")
+            color = "#888888"
+        self.main.seg_mode_label.setText(text)
+        self.main.seg_mode_label.setStyleSheet(f"color:{color};font-weight:bold;")
+
     def recogn_type_change(self):
         recogn_type = self.main.recogn_type.currentIndex()
         if recogn_type == recognition.Faster_Whisper_XXL and not self.show_xxl_select():
@@ -52,6 +69,7 @@ class WinActionConfigMixin:
         
         self.main.show_tips.setText(str(is_allow_lang) if is_allow_lang is not True else '')
 
+        self.update_seg_mode_label()
         if recognition.is_input_api(recogn_type=recogn_type) is not True:
             return
 
@@ -61,6 +79,7 @@ class WinActionConfigMixin:
         is_allow_lang = recognition.is_allow_lang(langcode=lang, recogn_type=recogn_type,
                                                   model_name=self.main.model_name.currentText())
         self.main.show_tips.setText(str(is_allow_lang) if is_allow_lang is not True else '')
+        self.update_seg_mode_label()
 
     def tts_type_change(self, type):
 

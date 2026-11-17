@@ -67,11 +67,13 @@ OPENROUTER_API = 38
 DEEPGRAM_TTS = 39
 FISHAUDIOAPI_TTS=40
 CLONE_VOICE_TTS = 41
+QWEN_CLONE_TTS = 42
 
 # 支持克隆的渠道，即存在 clone 配音角色
 SUPPORT_CLONE = [
     COSYVOICE_TTS,
     CLONE_VOICE_TTS,
+    QWEN_CLONE_TTS,
     F5_TTS,
     HIGGS_AUDIO_TTS,
     INDEX_TTS,
@@ -263,6 +265,10 @@ ID_NAME_DICT = {
                                      imp="._clone",
                                      key_name="clone_api",
                                      win="clone"),
+    QWEN_CLONE_TTS: ChannelProvider(f"Qwen Voice Clone({tr('Online')})",
+                                    imp="._qwenclone",
+                                    key_name="qwenclone_key",
+                                    win="qwenclone"),
 }
 
 # 强制保持按照每个常量值大小排序

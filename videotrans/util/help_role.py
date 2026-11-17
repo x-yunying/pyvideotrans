@@ -258,6 +258,12 @@ def get_qwen3tts_rolelist():
     return voices
 
 
+def get_qwenclone_rolelist() -> List[str]:
+    # clone = 使用当前视频的音色自动复刻；其余为百炼控制台已创建的音色 ID
+    extra = [x.strip() for x in str(params.get('qwenclone_roles', '')).split(',') if x.strip()]
+    return ['No', 'clone'] + extra
+
+
 # 本地qwentts3
 def get_qwenttslocal_rolelist():
     voices = {
@@ -389,6 +395,9 @@ def role_menu(tts_type, langcode=None) -> List:
     
     if tts_type == tts.CAMB_TTS:
         return get_camb_role()
+
+    if tts_type == tts.QWEN_CLONE_TTS:
+        return get_qwenclone_rolelist()
 
     if tts_type == tts.CLONE_VOICE_TTS:
         _list = params.get("clone_voicelist",'').split(',')

@@ -108,7 +108,7 @@ ID_NAME_DICT = {
                                 key_name="openairecognapi_key",
                                 win="openairecognapi",
                                 imp="._openairecognapi"),
-    QWEN3ASR: ChannelProvider(tr("Ali-Bailian"),
+    QWEN3ASR: ChannelProvider(f"Qwen-ASR({tr('Online')}) / {tr('Ali-Bailian')}",
                               key_name="bailian_key",
                               win="bailian",
                               imp="._bailian"),

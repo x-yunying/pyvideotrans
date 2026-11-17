@@ -109,9 +109,33 @@ class RecognMixin:
         self.signal(text=Path(self.cfg.source_sub).read_text(encoding='utf-8'), type='replace_subtitle')
 
 
-        # LLM纠错
+        # LLM纠错。若识别结果带说话人 ID（如 qwen-audio-3.1-asr-flash），
+        # 重新断句后按时间重叠恢复说话人，避免行数变化导致音色错位。
+        _spk_spans = []
+        if self.cfg.rephrase and any(it.get('spk') for it in self.source_srt_list):
+            _spk_spans = [
+                (it.get('start_time', 0), it.get('end_time', 0), it.get('spk'))
+                for it in self.source_srt_list if it.get('spk')
+            ]
         if self.cfg.rephrase:
             self.source_srt_list=self._llmpost(self.source_srt_list)
+            if _spk_spans:
+                for it in self.source_srt_list:
+                    best_spk = 'spk0'
+                    best_overlap = 0
+                    for s, e, spk in _spk_spans:
+                        overlap = min(e, it.get('end_time', 0)) - max(s, it.get('start_time', 0))
+                        if overlap > best_overlap:
+                            best_overlap = overlap
+                            best_spk = spk
+                    it['spk'] = best_spk
+                try:
+                    Path(f'{self.cfg.cache_folder}/speaker.json').write_text(
+                        json.dumps([it.get('spk') or 'spk0' for it in self.source_srt_list], ensure_ascii=False),
+                        encoding='utf-8'
+                    )
+                except Exception as e:
+                    logger.warning(f'重新断句后写入 speaker.json 失败: {e}')
         
         self._recogn_succeed()
         self.signal(text=tr('endtiquzimu'))

@@ -37,6 +37,9 @@ def is_allow_lang(langcode: str = None, tts_type: int = None):
                                                   "ru", "th", "fil", "vi", "it", "yue"]:
         is_support=False
 
+    elif tts_type == QWEN_CLONE_TTS and _lang2 not in ['zh', 'en', 'de', 'it', 'pt', 'es', 'ja', 'ko', 'fr', 'ru']:
+        is_support=False
+
     elif tts_type in [CHATTTS, ZIPVOICE_TTS, VITSCNEN_TTS, SPARK_TTS] and _lang2 not in ['zh', 'en']:
         is_support=False
 

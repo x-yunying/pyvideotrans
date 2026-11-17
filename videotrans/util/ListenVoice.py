@@ -16,7 +16,8 @@ class ListenVoice(QThread):
 
     def run(self):
         try:
-            if self.queue_tts[0]['role']=='clone':
+            # 在线声音复刻渠道可在提供参考音频时直接试听；本地原声克隆没有参考音频
+            if self.queue_tts[0]['role']=='clone' and not self.queue_tts[0].get('ref_wav'):
                 self.uito.emit(tr("The original sound clone cannot be auditioned"))
                 return
             from videotrans import tts

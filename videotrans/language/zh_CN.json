@@ -1204,6 +1204,19 @@
   "Selected": "已选",
   "Not-Selected": "未选",
   "Text alignment failed": "文字对齐时失败，请尝试将发音语言设为 自动检测 后重试",
-  "The native Vulkan may be disabled or unavailable. Please disable hardware acceleration and try again": "本机vulkan可能被禁用或不可用，请取消 硬件加速后重试"
+  "The native Vulkan may be disabled or unavailable. Please disable hardware acceleration and try again": "本机vulkan可能被禁用或不可用，请取消 硬件加速后重试",
+  "Qwen3-TTS Voice Cloning(Online)": "千问3-TTS 声音复刻(在线)",
+  "Qwen Online Voice Cloning": "千问在线声音复刻",
+  "API Key": "API 密钥",
+  "Workspace ID": "业务空间 ID",
+  "Voice cloning model": "声音复刻模型",
+  "Created voice IDs": "已创建音色 ID",
+  "Optional, business space ID or full API URL": "可选，业务空间 ID 或完整 API 地址",
+  "Created voice IDs, separated by commas": "已创建的音色 ID，用英文逗号分隔",
+  "Segmentation: word timestamps (multi-speaker)": "分段模式：词级时间戳（多人）",
+  "Segmentation: word timestamps (multi-speaker, <=5 min)": "分段模式：词级时间戳（多人，≤5分钟）",
+  "Segmentation: VAD (single speaker)": "分段模式：VAD（单人）",
+  "Segmentation: VAD": "分段模式：VAD",
+  "When speaker recognition is enabled, use word-level timestamps; otherwise use VAD": "勾选“识别说话人”时统一使用词级时间戳划分，多人分别配音；未勾选时按单人 VAD 分段；超过5分钟会自动分块识别，再由本地说话人分离统一音色"
 
 }

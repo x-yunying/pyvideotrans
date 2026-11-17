@@ -1,7 +1,6 @@
 import re
 from dataclasses import dataclass, field
 from typing import List, Union
-import dashscope
 import httpx
 from videotrans.configure.excepts import TranslateSrtError
 from videotrans.configure.config import params, logger
@@ -31,7 +30,6 @@ class BianlianMT(BaseTrans):
             self.api_url = f'https://{spaceid}.cn-beijing.maas.aliyuncs.com/api/v1'
         elif spaceid and spaceid.startswith('http'):
             self.api_url = spaceid.strip().strip('/')
-        dashscope.base_http_api_url = self.api_url
 
 
     def _item_task(self, data: str) -> str:
@@ -60,6 +58,8 @@ class BianlianMT(BaseTrans):
             translation_options['domains']=params.get("bailian_domains")
 
 
+        import dashscope
+        dashscope.base_http_api_url = self.api_url
         response = dashscope.Generation.call(
             # 若没有配置环境变量，请用阿里云百炼API Key将下行替换为：api_key="sk-xxx",
             api_key=params.get('bailian_key',''),
